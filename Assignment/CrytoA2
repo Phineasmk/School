@@ -1,0 +1,39 @@
+# Define the LDES encryption function
+def ldes_encrypt(plaintext, key):
+    # Initial permutation
+    permuted_text = [plaintext[1], plaintext[5], plaintext[2], plaintext[0], plaintext[3], plaintext[7], plaintext[4], plaintext[6]]
+    
+    # Perform 2 rounds of linear transformation
+    for i in range(2):
+        # XOR with key
+        for j in range(8):
+            permuted_text[j] ^= key[j]
+        # Apply linear transformation
+        permuted_text = [permuted_text[1], permuted_text[3], permuted_text[2], permuted_text[0], permuted_text[5], permuted_text[7], permuted_text[6], permuted_text[4]]
+    
+    # Final permutation
+    ciphertext = [permuted_text[3], permuted_text[0], permuted_text[2], permuted_text[4], permuted_text[6], permuted_text[1], permuted_text[7], permuted_text[5]]
+    
+    return ciphertext
+
+# Define the plaintexts and key
+plaintext_1100 = [1, 1, 0, 0, 0, 0, 0, 0]
+plaintext_1000 = [1, 0, 0, 0, 0, 0, 0, 0]
+plaintext_0100 = [0, 1, 0, 0, 0, 0, 0, 0]
+plaintext_0000 = [0, 0, 0, 0, 0, 0, 0, 0]
+key = [1, 0]
+
+# Compute the ciphertexts
+ciphertext_1100 = ldes_encrypt(plaintext_1100, key)
+ciphertext_1000 = ldes_encrypt(plaintext_1000, key)
+ciphertext_0100 = ldes_encrypt(plaintext_0100, key)
+ciphertext_0000 = ldes_encrypt(plaintext_0000, key)
+
+# Compute the sum of the ciphertexts
+sum_ciphertexts = [(ciphertext_1000[i] + ciphertext_0100[i] + ciphertext_0000[i]) % 2 for i in range(8)]
+
+# Check if the sum is equal to the ciphertext of E(1100)
+if sum_ciphertexts == ciphertext_1100:
+    print("The ciphertext of E(1100) is the sum of the ciphertexts of E(1000), E(0100), and E(0000).")
+else:
+    print("The ciphertext of E(1100) is not the sum of the ciphertexts of E(1000), E(0100), and E(0000).")
