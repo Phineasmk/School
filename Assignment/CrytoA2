@@ -21,7 +21,7 @@ plaintext_1100 = [1, 1, 0, 0, 0, 0, 0, 0]
 plaintext_1000 = [1, 0, 0, 0, 0, 0, 0, 0]
 plaintext_0100 = [0, 1, 0, 0, 0, 0, 0, 0]
 plaintext_0000 = [0, 0, 0, 0, 0, 0, 0, 0]
-key = [1, 0]
+key = [1, 0, 1, 0, 1, 0, 1, 0]
 
 # Compute the ciphertexts
 ciphertext_1100 = ldes_encrypt(plaintext_1100, key)
@@ -30,7 +30,7 @@ ciphertext_0100 = ldes_encrypt(plaintext_0100, key)
 ciphertext_0000 = ldes_encrypt(plaintext_0000, key)
 
 # Compute the sum of the ciphertexts
-sum_ciphertexts = [(ciphertext_1000[i] + ciphertext_0100[i] + ciphertext_0000[i]) % 2 for i in range(8)]
+sum_ciphertexts = [(ciphertext_1000[i] + ciphertext_0100[i] + ciphertext_0000[i]) % 2 for i in range(len(ciphertext_1100))]
 
 # Check if the sum is equal to the ciphertext of E(1100)
 if sum_ciphertexts == ciphertext_1100:
