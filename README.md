@@ -1,5 +1,6 @@
 ### Hi there 👋
-
+I’m a CS student trying to learn alot of stuff and discover my interest in the field of computer science. 
+Here is the repo that has most of my assignments from school as well as different sort of files to help me practice and familiarise myself with the workflow of Github 
 <!--
 **Phineasmk/phineasmk** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
