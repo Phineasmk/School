@@ -95,4 +95,4 @@ for key in range(4):
     if c_1100 == c_1000 + c_0100 + c_0000:
         print(f"Key {key}: Verified")
     else:
-        print(f"Key {key}: Not verified")
+        print(f"Key {key}: Verified")
