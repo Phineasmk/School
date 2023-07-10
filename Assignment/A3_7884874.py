@@ -16,13 +16,6 @@ def generate_primes(min_val, max_val):
         prime = random.randint(min_val, max_val)
     return prime
 
-# Calculate greatest common divisor of two numbers
-def gcd(a: int, b: int) -> int:
-    while b != 0:
-        a, b = b, a % b
-    return a
-
-
 # Calculate modular inverse of a number
 def mod_inv(e, phi):
     for d in range(3, phi):
@@ -54,7 +47,7 @@ print("p: ", p)
 print("q: ", q)
 
 
-message = 'Hello World'
+message = 'Hello World. I am a message. I am Phil'
 
 message_encode = [ord(ch) for ch in message]
     
@@ -63,7 +56,8 @@ ciphertext =[pow(ch,e,n) for ch in message_encode]
 
 print(ciphertext)
 
-message_decode = [chr(pow(ch,d,n)) for ch in ciphertext]
+# (C ^ d)mod n = m
+message_decode = [pow(ch,d,n) for ch in ciphertext]
 decrypted = "".join(chr(ch) for ch in message_decode)
 
 print(decrypted)
