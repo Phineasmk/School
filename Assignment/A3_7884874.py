@@ -64,18 +64,18 @@ def generate_keys() -> Tuple[Tuple[int, int], Tuple[int, int]]:
 # Encrypt a message using public key
 def encrypt(public_key: Tuple[int, int], message: str) -> int:
     e, n = public_key
-    m = int.from_bytes(message.encode(), byteorder='big')
-    c = pow(m, e, n)
-    return c
+    
 
 
 # Decrypt a ciphertext using private key
 def decrypt(private_key: Tuple[int, int], ciphertext: int) -> str:
     d, n = private_key
     m = pow(ciphertext, d, n)
-    message = m.to_bytes((m.bit_length() + 7) // 8, byteorder='big').decode()
+    message = ''
+    while m > 0:
+        message = chr(m & 0x7f) + message
+        m >>= 7
     return message
-
 
 # Test the RSA algorithm with random data
 if __name__ == '__main__':
@@ -86,8 +86,14 @@ if __name__ == '__main__':
 
     # Test encryption and decryption
     message = 'Hello World'
-    print('Original message:', message)
-    ciphertext = encrypt(public_key, message)
-    print('Ciphertext:', ciphertext)
-    decrypted_message = decrypt(private_key, ciphertext)
-    print('Decrypted message:', decrypted_message)
+    message_encode = [ord(ch) for ch in message]
+    
+    # (m ^ e)mod n = c
+    ciphertext =[pow(ch,e,n) for ch in message_encode for e, n in public_key ]
+    print(ciphertext)
+
+    # print('Original message:', message)
+    # ciphertext = encrypt(public_key, message)
+    # print('Ciphertext:', ciphertext)
+    # decrypted_message = decrypt(private_key, ciphertext)
+    # print('Decrypted message:', decrypted_message)
